@@ -1,0 +1,323 @@
+/**
+ * Styles for Magic Metrics Funnel Visualization
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Roboto', 'Google Sans', Arial, sans-serif;
+  overflow: auto;
+  background: #ffffff;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+/* Funnel Container */
+#funnel-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.funnel-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.funnel-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #202124;
+  margin-bottom: 20px;
+}
+
+.funnel-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat-box {
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+/* Funnel Chart */
+.funnel-chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.funnel-chart.horizontal {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* Funnel Steps */
+.funnel-step-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.funnel-step {
+  min-height: 60px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto;
+}
+
+.funnel-step.animate {
+  animation: slideIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.funnel-step:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.step-content {
+  padding: 15px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.step-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.step-metrics {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.metric-value {
+  font-weight: 700;
+}
+
+.metric-percent {
+  opacity: 0.8;
+}
+
+/* Conversion Rate */
+.conversion-rate {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.conversion-rate.good {
+  background: #e6f4ea;
+  color: #1e8e3e;
+}
+
+.conversion-rate.medium {
+  background: #fef7e0;
+  color: #ea8600;
+}
+
+.conversion-rate.poor {
+  background: #fce8e6;
+  color: #c5221f;
+}
+
+.rate-label {
+  opacity: 0.8;
+}
+
+.rate-value {
+  font-weight: 700;
+}
+
+/* Drop-off Info */
+.dropoff-info {
+  margin-top: 6px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.9;
+}
+
+.dropoff-icon {
+  font-size: 14px;
+}
+
+.dropoff-label {
+  opacity: 0.8;
+}
+
+.dropoff-value {
+  font-weight: 600;
+}
+
+/* Tooltip */
+#tooltip {
+  position: fixed;
+  background: rgba(32, 33, 36, 0.95);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 300px;
+}
+
+.tooltip-content strong {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.tooltip-metric {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-metric:first-of-type {
+  border-top: none;
+}
+
+.tooltip-metric span {
+  opacity: 0.8;
+}
+
+.tooltip-metric strong {
+  display: inline;
+  margin: 0;
+  font-size: 12px;
+  color: #fff;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 16px;
+  color: #5f6368;
+}
+
+/* Error State */
+.error {
+  padding: 20px;
+  background: #fce8e6;
+  color: #c5221f;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .funnel-stats {
+    gap: 15px;
+  }
+  
+  .stat-box {
+    min-width: 100px;
+  }
+  
+  .stat-value {
+    font-size: 22px;
+  }
+  
+  .funnel-step {
+    min-height: 50px;
+  }
+  
+  .step-name {
+    font-size: 12px;
+  }
+  
+  .step-metrics {
+    font-size: 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .funnel-step {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  #tooltip {
+    display: none;
+  }
+}

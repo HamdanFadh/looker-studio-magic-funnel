@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Metrics Funnel - Standalone Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    
+    #demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .demo-header h1 {
+      color: #202124;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .demo-header p {
+      color: #5f6368;
+      font-size: 16px;
+    }
+    
+    .demo-controls {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .control-group {
+      margin-bottom: 15px;
+    }
+    
+    .control-group label {
+      display: inline-block;
+      width: 200px;
+      font-weight: 500;
+      color: #202124;
+    }
+    
+    .control-group input,
+    .control-group select {
+      padding: 8px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .control-group input[type="checkbox"] {
+      width: auto;
+      margin-left: 10px;
+    }
+    
+    .control-group input[type="color"] {
+      width: 60px;
+      height: 36px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    button {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background: #1557b0;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo-container">
+    <div class="demo-header">
+      <h1>🎯 Magic Metrics Funnel</h1>
+      <p>Interactive funnel visualization for Looker Studio</p>
+    </div>
+    
+    <div class="demo-controls">
+      <h3 style="margin-bottom: 15px;">Visualization Controls</h3>
+      
+      <div class="control-group">
+        <label>Start Color:</label>
+        <input type="color" id="startColor" value="#1a73e8">
+      </div>
+      
+      <div class="control-group">
+        <label>End Color:</label>
+        <input type="color" id="endColor" value="#34a853">
+      </div>
+      
+      <div class="control-group">
+        <label>Drop-off Color:</label>
+        <input type="color" id="dropoffColor" value="#ea4335">
+      </div>
+      
+      <div class="control-group">
+        <label>Orientation:</label>
+        <select id="orientation">
+          <option value="vertical">Vertical</option>
+          <option value="horizontal">Horizontal</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label>Funnel Width (%):</label>
+        <input type="number" id="funnelWidth" value="80" min="50" max="100">
+      </div>
+      
+      <div class="control-group">
+        <label>Step Spacing:</label>
+        <input type="number" id="stepSpacing" value="10" min="0" max="50">
+      </div>
+      
+      <div class="control-group">
+        <label>Show Conversion Rate:</label>
+        <input type="checkbox" id="showConversionRate" checked>
+      </div>
+      
+      <div class="control-group">
+        <label>Show Drop-off:</label>
+        <input type="checkbox" id="showDropoff" checked>
+      </div>
+      
+      <div class="control-group">
+        <label>Show Percentages:</label>
+        <input type="checkbox" id="showPercentages" checked>
+      </div>
+      
+      <div class="control-group">
+        <label>Show Values:</label>
+        <input type="checkbox" id="showValues" checked>
+      </div>
+      
+      <div class="control-group">
+        <label>Animate on Load:</label>
+        <input type="checkbox" id="animateOnLoad" checked>
+      </div>
+      
+      <button onclick="updateVisualization()">Update Visualization</button>
+    </div>
+    
+    <div id="container"></div>
+  </div>
+
+  <script src="viz.js"></script>
+  <script>
+    // Sample data for demonstration
+    const sampleData = {
+      tables: {
+        DEFAULT: [
+          { step: ['Step 1: Landing Page'], users: [10000], stepOrder: ['1'] },
+          { step: ['Step 2: Sign Up'], users: [7500], stepOrder: ['2'] },
+          { step: ['Step 3: Email Verification'], users: [6200], stepOrder: ['3'] },
+          { step: ['Step 4: Profile Setup'], users: [5100], stepOrder: ['4'] },
+          { step: ['Step 5: First Action'], users: [4200], stepOrder: ['5'] },
+          { step: ['Step 6: Completion'], users: [3500], stepOrder: ['6'] }
+        ]
+      },
+      style: {
+        startColor: { value: { color: '#1a73e8' } },
+        endColor: { value: { color: '#34a853' } },
+        dropoffColor: { value: { color: '#ea4335' } },
+        textColor: { value: { color: '#202124' } },
+        orientation: { value: 'vertical' },
+        funnelWidth: { value: 80 },
+        stepSpacing: { value: 10 },
+        showConversionRate: { value: true },
+        showDropoff: { value: true },
+        showPercentages: { value: true },
+        showValues: { value: true },
+        animateOnLoad: { value: true },
+        fontSize: { value: 14 },
+        fontFamily: { value: 'roboto' }
+      }
+    };
+
+    // Function to update visualization with current control values
+    function updateVisualization() {
+      sampleData.style.startColor.value.color = document.getElementById('startColor').value;
+      sampleData.style.endColor.value.color = document.getElementById('endColor').value;
+      sampleData.style.dropoffColor.value.color = document.getElementById('dropoffColor').value;
+      sampleData.style.orientation.value = document.getElementById('orientation').value;
+      sampleData.style.funnelWidth.value = parseInt(document.getElementById('funnelWidth').value);
+      sampleData.style.stepSpacing.value = parseInt(document.getElementById('stepSpacing').value);
+      sampleData.style.showConversionRate.value = document.getElementById('showConversionRate').checked;
+      sampleData.style.showDropoff.value = document.getElementById('showDropoff').checked;
+      sampleData.style.showPercentages.value = document.getElementById('showPercentages').checked;
+      sampleData.style.showValues.value = document.getElementById('showValues').checked;
+      sampleData.style.animateOnLoad.value = document.getElementById('animateOnLoad').checked;
+      
+      drawViz(sampleData);
+    }
+
+    // Initial render
+    window.addEventListener('load', () => {
+      updateVisualization();
+    });
+  </script>
+</body>
+</html>
