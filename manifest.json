@@ -7,7 +7,7 @@
   "privacyPolicyUrl": "https://github.com/hamdanfadh/looker-studio-magic-funnel",
   "termsOfServiceUrl": "https://github.com/hamdanfadh/looker-studio-magic-funnel",
   "packageUrl": "https://hamdanfadh.github.io/looker-studio-magic-funnel/",
-  "devMode": "DEVMODE_UNSPECIFIED",
+  "devMode": true,
   "components": [
     {
       "id": "magicFunnel",
