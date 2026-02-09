@@ -2,11 +2,11 @@
   "name": "Magic Metrics Funnel",
   "organization": "Funnel Analytics",
   "description": "Interactive metrics funnel visualization with conversion rates and drop-off analysis",
-  "organizationUrl": "https://github.com/pavloba-dot",
-  "supportUrl": "https://github.com/pavloba-dot/looker-studio-magic-funnel",
-  "privacyPolicyUrl": "https://github.com/pavloba-dot/looker-studio-magic-funnel",
-  "termsOfServiceUrl": "https://github.com/pavloba-dot/looker-studio-magic-funnel",
-  "packageUrl": "https://pavloba-dot.github.io/looker-studio-magic-funnel/",
+  "organizationUrl": "https://github.com/hamdanfadh",
+  "supportUrl": "https://github.com/hamdanfadh/looker-studio-magic-funnel",
+  "privacyPolicyUrl": "https://github.com/hamdanfadh/looker-studio-magic-funnel",
+  "termsOfServiceUrl": "https://github.com/hamdanfadh/looker-studio-magic-funnel",
+  "packageUrl": "https://hamdanfadh.github.io/looker-studio-magic-funnel/",
   "devMode": "DEVMODE_UNSPECIFIED",
   "components": [
     {
@@ -14,9 +14,9 @@
       "name": "Magic Metrics Funnel",
       "description": "Interactive funnel with conversion metrics",
       "resource": {
-        "js": "https://pavloba-dot.github.io/looker-studio-magic-funnel/viz.js",
-        "config": "https://pavloba-dot.github.io/looker-studio-magic-funnel/config.js",
-        "css": "https://pavloba-dot.github.io/looker-studio-magic-funnel/styles.css"
+        "js": "https://hamdanfadh.github.io/looker-studio-magic-funnel/viz.js",
+        "config": "https://hamdanfadh.github.io/looker-studio-magic-funnel/config.js",
+        "css": "https://hamdanfadh.github.io/looker-studio-magic-funnel/styles.css"
       }
     }
   ]
